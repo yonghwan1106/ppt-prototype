@@ -40,6 +40,7 @@ interface Project {
 interface ProjectMapProps {
   projects: Project[];
   onProjectSelect: (project: Project) => void;
+  selectedProjectId?: number;
 }
 
 function getMarkerColor(project: Project): string {
@@ -53,7 +54,7 @@ function getMarkerColor(project: Project): string {
   }
 }
 
-export default function ProjectMap({ projects, onProjectSelect }: ProjectMapProps) {
+export default function ProjectMap({ projects, onProjectSelect, selectedProjectId }: ProjectMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
 
@@ -90,12 +91,13 @@ export default function ProjectMap({ projects, onProjectSelect }: ProjectMapProp
         pulseMarker.addTo(map);
       }
 
+      const isSelected = project.id === selectedProjectId;
       const marker = L.circleMarker([project.lat, project.lng], {
-        radius,
-        color,
-        fillColor: color,
-        fillOpacity: 0.7,
-        weight: 2,
+        radius: isSelected ? 14 : radius,
+        color: isSelected ? '#c8a044' : color,
+        fillColor: isSelected ? '#c8a044' : color,
+        fillOpacity: isSelected ? 0.9 : 0.7,
+        weight: isSelected ? 3 : 2,
       });
 
       marker.bindPopup(`
@@ -137,7 +139,7 @@ export default function ProjectMap({ projects, onProjectSelect }: ProjectMapProp
       <div className="px-6 pt-5 pb-3">
         <h2 className="serif-headline text-xl font-bold text-[#e8e4dc]">경기남부 사업 분포도</h2>
       </div>
-      <div ref={mapRef} className="w-full h-[500px] dot-grid" />
+      <div ref={mapRef} className="w-full h-[300px] sm:h-[400px] lg:h-[500px] dot-grid" />
       <div className="px-6 py-3 flex flex-wrap gap-5 border-t border-[rgba(200,160,68,0.08)]">
         {[
           { color: '#3b82f6', label: '시공중' },

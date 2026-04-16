@@ -110,7 +110,7 @@ export default function ProjectDetail({ project, wbsData }: ProjectDetailProps) 
           </div>
         </div>
         <div className="flex items-baseline gap-0">
-          <span className="mono-number text-8xl font-bold text-[#c8a044] gold-glow leading-none">
+          <span className="mono-number text-5xl md:text-7xl lg:text-8xl font-bold text-[#c8a044] gold-glow leading-none">
             {progressWhole}
           </span>
           <span className="mono-number text-4xl font-bold text-[#c8a044] gold-glow leading-none">

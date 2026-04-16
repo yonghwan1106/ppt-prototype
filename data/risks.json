@@ -70,5 +70,53 @@
     "impact": "지하수 모니터링 시스템 추가 설치 비용 약 200억원",
     "mitigation": "실시간 지하수 모니터링 시스템 설계 반영, 환경 NGO 협의채널 구축",
     "detectedAt": "2026-01-15"
+  },
+  {
+    "id": 7,
+    "projectId": 2,
+    "category": "공정·일정",
+    "name": "지하 매설물 발견으로 공사 지연",
+    "description": "단지조성 공사 중 미등록 지하 매설물(구 군용 통신선, 상수도 분기관) 발견으로 공정 재조정 필요.",
+    "severity": "medium",
+    "likelihood": "medium",
+    "impact": "해당 구간 공사 1~2개월 지연, 추가 처리비용 약 80억원",
+    "mitigation": "GPR 지하 탐사 선행 조사 확대, 시공사 예비공정 여유 확보",
+    "detectedAt": "2026-04-05"
+  },
+  {
+    "id": 8,
+    "projectId": 4,
+    "category": "사회·갈등",
+    "name": "주민 이주 대책 민원",
+    "description": "화성시 일원 원주민 이주 보상 및 대체 주거지 확보 민원 급증. 집단 이의신청 제출.",
+    "severity": "high",
+    "likelihood": "high",
+    "impact": "사업 승인 절차 4~6개월 지연, 보상비 증가 약 2,000억원",
+    "mitigation": "이주민 설명회 정례화, 이주 지원 전담팀 구성, 대체 주거지 선제 확보",
+    "detectedAt": "2026-03-20"
+  },
+  {
+    "id": 9,
+    "projectId": 4,
+    "category": "인프라",
+    "name": "교통 인프라 미연결",
+    "description": "동탄3 신도시 계획인구 대비 광역교통망(GTX, 버스 BRT) 연결 시점 불일치 우려.",
+    "severity": "medium",
+    "likelihood": "medium",
+    "impact": "입주 초기 교통 혼잡, 민원 발생, 분양 일정 조정 가능성",
+    "mitigation": "국토부·화성시·GTX 사업자 3자 협의체 구성, 단계별 입주 계획 조정",
+    "detectedAt": "2026-04-01"
+  },
+  {
+    "id": 10,
+    "projectId": 5,
+    "category": "공정·일정",
+    "name": "반도체 클러스터 본 단지 일정 연동",
+    "description": "협력단지 조성이 반도체 클러스터 본 단지(프로젝트 1) 착공 일정에 종속되어 있어, 본 단지 지연 시 연쇄 지연 발생.",
+    "severity": "medium",
+    "likelihood": "medium",
+    "impact": "협력단지 입주 기업 이탈 가능성, 2~4개월 일정 지연",
+    "mitigation": "본 단지와 독립적인 선행 기반조성 공정 구성, 단계별 착공 허용",
+    "detectedAt": "2026-04-10"
   }
 ]
