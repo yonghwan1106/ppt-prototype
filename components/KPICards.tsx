@@ -4,25 +4,28 @@ interface KPICardProps {
   label: string;
   value: string;
   unit: string;
-  icon: string;
-  accentColor: string;
+  trend: string;
+  trendUp: boolean;
+  delay: number;
 }
 
-function KPICard({ label, value, unit, icon, accentColor }: KPICardProps) {
+function KPICard({ label, value, unit, trend, trendUp, delay }: KPICardProps) {
   return (
-    <div className="card-hover bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-xl p-5 flex flex-col gap-2">
+    <div
+      className={`animate-in animate-in-delay-${delay} card-hover card-surface rounded-xl p-5 flex flex-col gap-3 gold-border-left gold-gradient-bg`}
+    >
       <div className="flex items-center justify-between">
-        <span className="text-xs uppercase tracking-wider text-gray-400">{label}</span>
-        <span
-          className="w-8 h-8 rounded-lg flex items-center justify-center text-sm"
-          style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
-        >
-          {icon}
-        </span>
+        <span className="mono-number text-[10px] tracking-[0.2em] uppercase text-[#8b8577]">{label}</span>
       </div>
-      <div className="flex items-baseline gap-1.5">
-        <span className="font-mono text-3xl font-bold text-white">{value}</span>
-        <span className="text-sm text-gray-400">{unit}</span>
+      <div className="flex items-baseline gap-2">
+        <span className="mono-number text-5xl font-bold text-[#c8a044] gold-glow leading-none">{value}</span>
+        <span className="text-sm text-[#8b8577] font-light">{unit}</span>
+      </div>
+      <div className="flex items-center gap-1.5">
+        <span className={`text-xs ${trendUp ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+          {trendUp ? '▲' : '▼'} {trend}
+        </span>
+        <span className="text-[10px] text-[#5a5549]">vs 지난주</span>
       </div>
     </div>
   );
@@ -30,14 +33,14 @@ function KPICard({ label, value, unit, icon, accentColor }: KPICardProps) {
 
 export default function KPICards() {
   const cards: KPICardProps[] = [
-    { label: '추적 프로젝트', value: '8', unit: '건', icon: '📊', accentColor: '#3b82f6' },
-    { label: '총 사업규모', value: '156.3', unit: '조원', icon: '💰', accentColor: '#10b981' },
-    { label: '이번 주 신규 문서', value: '23', unit: '건', icon: '📄', accentColor: '#8b5cf6' },
-    { label: '고위험 알림', value: '3', unit: '건', icon: '⚠️', accentColor: '#ef4444' },
+    { label: '추적 프로젝트', value: '8', unit: '건', trend: '+2', trendUp: true, delay: 1 },
+    { label: '총 사업규모', value: '156.3', unit: '조원', trend: '+3.2조', trendUp: true, delay: 2 },
+    { label: '이번 주 신규 문서', value: '23', unit: '건', trend: '+8', trendUp: true, delay: 3 },
+    { label: '고위험 알림', value: '3', unit: '건', trend: '-1', trendUp: false, delay: 4 },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {cards.map((card) => (
         <KPICard key={card.label} {...card} />
       ))}

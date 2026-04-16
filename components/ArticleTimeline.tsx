@@ -15,12 +15,12 @@ interface ArticleTimelineProps {
   articles: Article[];
 }
 
-function getTypeColor(type: string): string {
+function getTypeStyle(type: string): { color: string; label: string } {
   switch (type) {
-    case 'briefing': return '#3b82f6';
-    case 'alert': return '#ef4444';
-    case 'report': return '#8b5cf6';
-    default: return '#6b7280';
+    case 'briefing': return { color: '#3b82f6', label: '일일 브리핑' };
+    case 'alert': return { color: '#ef4444', label: '위험 알림' };
+    case 'report': return { color: '#c8a044', label: '심층 리포트' };
+    default: return { color: '#8b8577', label: type };
   }
 }
 
@@ -38,46 +38,62 @@ function getRelativeDate(dateStr: string): string {
 
 export default function ArticleTimeline({ articles }: ArticleTimelineProps) {
   return (
-    <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-xl p-5">
-      <div className="mb-5">
-        <p className="text-xs uppercase tracking-wider text-gray-400 mb-1">AI 에이전트 산출물</p>
-        <h2 className="text-lg font-semibold text-white">기사 타임라인</h2>
+    <div className="card-surface rounded-xl p-6">
+      <div className="mb-6">
+        <h2 className="serif-headline text-xl font-bold text-[#e8e4dc]">기사 타임라인</h2>
+        <p className="text-xs text-[#5a5549] mt-1 mono-number tracking-wider">AI GENERATED · EDITOR VERIFIED</p>
       </div>
 
       <div className="relative">
-        {/* Vertical line */}
-        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gray-700/50" />
+        {/* Vertical timeline line */}
+        <div className="absolute left-[7px] top-2 bottom-2 w-px timeline-line" />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           {articles.map((article) => {
-            const color = getTypeColor(article.type);
+            const typeStyle = getTypeStyle(article.type);
             return (
-              <div key={article.id} className="flex gap-4 group">
+              <div key={article.id} className="flex gap-5 group">
                 {/* Timeline dot */}
-                <div className="flex flex-col items-center pt-1.5">
+                <div className="flex flex-col items-center pt-2">
                   <div
-                    className="w-3.5 h-3.5 rounded-full border-2 bg-gray-900 z-10 transition-all group-hover:scale-125"
-                    style={{ borderColor: color }}
+                    className="w-3.5 h-3.5 rounded-full border-2 bg-[#08090d] z-10 transition-all group-hover:scale-125"
+                    style={{ borderColor: typeStyle.color }}
                   />
                 </div>
 
                 {/* Content card */}
-                <div className="flex-1 bg-gray-800/40 rounded-lg p-4 border border-gray-700/30 card-hover"
-                  style={{ borderLeftWidth: 3, borderLeftColor: color }}
+                <div
+                  className="flex-1 rounded-lg p-5 card-hover"
+                  style={{
+                    background: 'rgba(15,18,25,0.6)',
+                    borderLeft: `3px solid ${typeStyle.color}`,
+                    border: `1px solid rgba(200,160,68,0.06)`,
+                    borderLeftWidth: 3,
+                    borderLeftColor: typeStyle.color,
+                  }}
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-3 mb-3">
                     <span
-                      className="px-2 py-0.5 rounded text-[10px] font-bold uppercase"
-                      style={{ backgroundColor: `${color}20`, color }}
+                      className="px-2.5 py-1 rounded-full mono-number text-[10px] font-medium tracking-wider border"
+                      style={{
+                        color: typeStyle.color,
+                        borderColor: `${typeStyle.color}40`,
+                        background: 'transparent',
+                      }}
                     >
                       {article.typeLabel}
                     </span>
-                    <span className="text-xs text-gray-500">{getRelativeDate(article.publishedAt)}</span>
-                    <span className="text-[10px] text-gray-600 ml-auto">{article.author}</span>
+                    <span className="mono-number text-[10px] text-[#5a5549]">{getRelativeDate(article.publishedAt)}</span>
+                    <div className="flex items-center gap-1.5 ml-auto">
+                      <span className="text-[10px] text-[#8b8577]">{article.author}</span>
+                      <span className="text-[8px] mono-number px-1.5 py-0.5 rounded border border-[rgba(200,160,68,0.15)] text-[#5a5549] tracking-wider">AI</span>
+                    </div>
                   </div>
-                  <h3 className="text-sm font-semibold text-gray-100 mb-1.5 leading-snug">{article.title}</h3>
-                  <p className="text-xs text-gray-400 leading-relaxed mb-2">{article.summary}</p>
-                  <p className="text-[10px] text-gray-500 italic">{article.citation}</p>
+                  <h3 className="serif-headline text-base font-bold text-[#e8e4dc] mb-2 leading-snug">{article.title}</h3>
+                  <p className="text-xs text-[#8b8577] font-light leading-relaxed mb-3">{article.summary}</p>
+                  <div className="border-t border-[rgba(200,160,68,0.08)] pt-2">
+                    <p className="text-[10px] text-[#5a5549] italic font-light">{article.citation}</p>
+                  </div>
                 </div>
               </div>
             );

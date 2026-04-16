@@ -20,105 +20,120 @@ interface RiskDashboardProps {
 function getSeverityColor(severity: string): string {
   switch (severity) {
     case 'high': return '#ef4444';
-    case 'medium': return '#f59e0b';
+    case 'medium': return '#c8a044';
     case 'low': return '#10b981';
-    default: return '#6b7280';
+    default: return '#8b8577';
   }
 }
 
 function getSeverityLabel(severity: string): string {
   switch (severity) {
-    case 'high': return '높음';
-    case 'medium': return '중간';
-    case 'low': return '낮음';
+    case 'high': return 'HIGH';
+    case 'medium': return 'MED';
+    case 'low': return 'LOW';
     default: return severity;
   }
 }
 
 export default function RiskDashboard({ risks, tensionIndex }: RiskDashboardProps) {
   const tensionPct = Math.round(tensionIndex * 100);
-  const tensionColor = tensionIndex >= 0.7 ? '#ef4444' : tensionIndex >= 0.4 ? '#f59e0b' : '#10b981';
+
+  // Gradient stops for the tension bar
+  const barGradient = tensionIndex >= 0.7
+    ? 'linear-gradient(90deg, #10b981 0%, #c8a044 40%, #ef4444 70%, #ef4444 100%)'
+    : tensionIndex >= 0.4
+    ? 'linear-gradient(90deg, #10b981 0%, #c8a044 60%, #c8a044 100%)'
+    : 'linear-gradient(90deg, #10b981 0%, #10b981 100%)';
 
   return (
-    <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-xl p-5 flex flex-col">
-      <div className="mb-4">
-        <p className="text-xs uppercase tracking-wider text-gray-400 mb-1">위험 관리</p>
-        <h2 className="text-lg font-semibold text-white">리스크 대시보드</h2>
+    <div className="card-surface rounded-xl p-6 flex flex-col">
+      <div className="mb-5">
+        <span className="section-label">Risk Assessment</span>
+        <h2 className="serif-headline text-2xl font-bold text-[#e8e4dc] mt-2">리스크 대시보드</h2>
       </div>
 
-      {/* Tension Gauge */}
-      <div className="mb-5 p-4 bg-gray-800/50 rounded-xl border border-gray-700/30">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-xs text-gray-400 uppercase tracking-wider">이해관계자 갈등 지수</p>
-          <span className="font-mono text-2xl font-bold" style={{ color: tensionColor }}>
+      {/* Horizontal Tension Bar */}
+      <div className="mb-6 p-5 rounded-xl border border-[rgba(200,160,68,0.1)] gold-gradient-bg">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-[10px] mono-number tracking-wider text-[#8b8577] uppercase">이해관계자 갈등 지수</p>
+          <span className="mono-number text-3xl font-bold text-[#c8a044] gold-glow">
             {tensionIndex.toFixed(2)}
           </span>
         </div>
-        {/* SVG Semicircle Gauge */}
-        <div className="flex justify-center">
-          <svg width="200" height="110" viewBox="0 0 200 110">
-            {/* Background arc */}
-            <path
-              d="M 20 100 A 80 80 0 0 1 180 100"
-              fill="none"
-              stroke="#374151"
-              strokeWidth="12"
-              strokeLinecap="round"
-            />
-            {/* Value arc */}
-            <path
-              d={`M 20 100 A 80 80 0 0 1 ${20 + 160 * tensionIndex} ${100 - Math.sin(Math.acos(1 - tensionIndex)) * 80 * (tensionIndex <= 0.5 ? 1 : 1)}`}
-              fill="none"
-              stroke={tensionColor}
-              strokeWidth="12"
-              strokeLinecap="round"
+
+        {/* Full-width horizontal bar */}
+        <div className="relative">
+          {/* Background */}
+          <div className="h-8 rounded-lg overflow-hidden" style={{ background: 'rgba(200,160,68,0.06)' }}>
+            {/* Filled portion with gradient */}
+            <div
+              className="h-full rounded-lg transition-all duration-700 relative"
               style={{
-                strokeDasharray: `${tensionIndex * 251.2} 251.2`,
+                width: `${tensionPct}%`,
+                background: barGradient,
+                boxShadow: tensionIndex >= 0.7 ? '0 0 20px rgba(239,68,68,0.3)' : '0 0 20px rgba(200,160,68,0.2)',
               }}
-            />
-            {/* Simpler approach: just use dasharray on the background arc path */}
-            <path
-              d="M 20 100 A 80 80 0 0 1 180 100"
-              fill="none"
-              stroke={tensionColor}
-              strokeWidth="12"
-              strokeLinecap="round"
-              strokeDasharray={`${tensionPct * 2.512} 251.2`}
-            />
-            <text x="100" y="85" textAnchor="middle" fill="#e5e7eb" fontSize="13" fontWeight="600">
-              {tensionPct}%
-            </text>
-            <text x="20" y="108" textAnchor="middle" fill="#6b7280" fontSize="10">0</text>
-            <text x="180" y="108" textAnchor="middle" fill="#6b7280" fontSize="10">1.0</text>
-          </svg>
+            >
+              {/* Percentage overlay inside bar */}
+              <span className="absolute right-2 top-1/2 -translate-y-1/2 mono-number text-xs font-bold text-white/90">
+                {tensionPct}%
+              </span>
+            </div>
+          </div>
+
+          {/* Tick marks */}
+          <div className="flex justify-between mt-1.5 px-0.5">
+            {[0, 0.25, 0.5, 0.75, 1.0].map((v) => (
+              <div key={v} className="flex flex-col items-center">
+                <div className="w-px h-1.5 bg-[rgba(200,160,68,0.2)]" />
+                <span className="mono-number text-[9px] text-[#5a5549] mt-0.5">{v.toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Labels */}
+        <div className="flex justify-between mt-2">
+          <span className="text-[10px] text-[#10b981]">안정</span>
+          <span className="text-[10px] text-[#c8a044]">주의</span>
+          <span className="text-[10px] text-[#ef4444]">위험</span>
         </div>
       </div>
 
       {/* Risk Cards */}
-      <div className="flex flex-col gap-2.5 flex-1 overflow-y-auto max-h-[380px] pr-1">
+      <div className="flex flex-col gap-3 flex-1 overflow-y-auto max-h-[400px] pr-1">
         {risks.map((risk) => {
           const color = getSeverityColor(risk.severity);
+          const isHigh = risk.severity === 'high';
           return (
             <div
               key={risk.id}
-              className="bg-gray-800/40 rounded-lg p-3 border border-gray-700/30 card-hover"
-              style={{ borderLeftWidth: 3, borderLeftColor: color }}
+              className={`rounded-lg p-4 border border-[rgba(200,160,68,0.06)] card-hover ${isHigh ? 'pulse-border-high' : ''}`}
+              style={{
+                borderLeftWidth: 3,
+                borderLeftColor: color,
+                background: 'rgba(15,18,25,0.6)',
+              }}
             >
-              <div className="flex items-start justify-between mb-1.5">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span
-                    className="px-2 py-0.5 rounded text-[10px] font-bold uppercase"
-                    style={{ backgroundColor: `${color}20`, color }}
+                    className="px-2 py-0.5 rounded mono-number text-[9px] font-bold tracking-wider border"
+                    style={{
+                      color,
+                      borderColor: `${color}40`,
+                      background: `${color}08`,
+                    }}
                   >
                     {getSeverityLabel(risk.severity)}
                   </span>
-                  <span className="text-[10px] text-gray-500">{risk.category}</span>
+                  <span className="text-[10px] text-[#5a5549] mono-number">{risk.category}</span>
                 </div>
-                <span className="text-[10px] text-gray-500">{risk.detectedAt}</span>
+                <span className="text-[10px] text-[#5a5549] mono-number">{risk.detectedAt}</span>
               </div>
-              <p className="text-sm font-medium text-gray-200 mb-1">{risk.name}</p>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                {risk.description.length > 80 ? risk.description.slice(0, 80) + '...' : risk.description}
+              <p className="text-sm font-normal text-[#e8e4dc] mb-1.5">{risk.name}</p>
+              <p className="text-xs text-[#8b8577] font-light leading-relaxed">
+                {risk.description.length > 100 ? risk.description.slice(0, 100) + '...' : risk.description}
               </p>
             </div>
           );

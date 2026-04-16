@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "PPT \u00b7 Public Project Tracker \u2014 \uacbd\uae30\ub0a8\ubd80 \uacf5\uacf5\uc0ac\uc5c5 \ucd94\uc801 \ub300\uc2dc\ubcf4\ub4dc",
-  description: "\uacbd\uc778\ube14\ub8e8\uc800\ub110\uc774 \uc6b4\uc601\ud558\ub294 AI \uc5d0\uc774\uc804\ud2b8 \uae30\ubc18 \uacf5\uacf5 \ud504\ub85c\uc81d\ud2b8 \ucd94\uc801\u00b7\ubd84\uc11d \ud50c\ub7ab\ud3fc",
+  title: "PPT · Public Project Tracker — 경기남부 공공사업 추적 대시보드",
+  description: "경인블루저널이 운영하는 AI 에이전트 기반 공공 프로젝트 추적·분석 플랫폼",
 };
 
 export default function RootLayout({
@@ -23,11 +12,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-[#0a0f1a] text-gray-100 antialiased">{children}</body>
+    <html lang="ko" className="h-full antialiased">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Sans+KR:wght@300;400;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-[#08090d] text-[#e8e4dc] antialiased">
+        {children}
+      </body>
     </html>
   );
 }
