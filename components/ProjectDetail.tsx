@@ -75,7 +75,7 @@ export default function ProjectDetail({ project, wbsData }: ProjectDetailProps) 
   return (
     <div className="card-surface rounded-xl p-6">
       <div className="mb-5">
-        <span className="section-label">Project Detail</span>
+        <span className="section-label">프로젝트 상세 · PROJECT DETAIL</span>
         <h2 className="serif-headline text-2xl font-bold text-[#e8e4dc] mt-2">{project.shortName}</h2>
       </div>
 

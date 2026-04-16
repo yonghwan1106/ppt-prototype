@@ -57,7 +57,9 @@ function getMarkerColor(project: Project): string {
 export default function ProjectMap({ projects, onProjectSelect, selectedProjectId }: ProjectMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
+  const markerLayerRef = useRef<L.LayerGroup | null>(null);
 
+  // Map init — runs once
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
 
@@ -74,6 +76,24 @@ export default function ProjectMap({ projects, onProjectSelect, selectedProjectI
       maxZoom: 19,
     }).addTo(map);
 
+    markerLayerRef.current = L.layerGroup().addTo(map);
+    mapInstanceRef.current = map;
+
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+      markerLayerRef.current = null;
+    };
+  }, []);
+
+  // Markers — reruns when projects or selectedProjectId changes
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    const markerLayer = markerLayerRef.current;
+    if (!map || !markerLayer) return;
+
+    markerLayer.clearLayers();
+
     projects.forEach((project) => {
       const color = getMarkerColor(project);
       const radius = project.featured ? 12 : 7;
@@ -88,7 +108,7 @@ export default function ProjectMap({ projects, onProjectSelect, selectedProjectI
           weight: 1,
           className: 'pulse-marker',
         });
-        pulseMarker.addTo(map);
+        pulseMarker.addTo(markerLayer);
       }
 
       const isSelected = project.id === selectedProjectId;
@@ -123,16 +143,9 @@ export default function ProjectMap({ projects, onProjectSelect, selectedProjectI
       `);
 
       marker.on('click', () => onProjectSelect(project));
-      marker.addTo(map);
+      marker.addTo(markerLayer);
     });
-
-    mapInstanceRef.current = map;
-
-    return () => {
-      map.remove();
-      mapInstanceRef.current = null;
-    };
-  }, [projects, onProjectSelect]);
+  }, [projects, onProjectSelect, selectedProjectId]);
 
   return (
     <div className="card-surface rounded-xl overflow-hidden">
