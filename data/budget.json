@@ -1,0 +1,29 @@
+{
+  "categories": [
+    { "name": "부지매입·보상", "amount": 32000, "pct": 26.7, "color": "#ef4444" },
+    { "name": "인프라 공사", "amount": 18000, "pct": 15.0, "color": "#f59e0b" },
+    { "name": "팹 건설", "amount": 50000, "pct": 41.7, "color": "#3b82f6" },
+    { "name": "환경·안전", "amount": 5000, "pct": 4.2, "color": "#10b981" },
+    { "name": "협력단지", "amount": 15000, "pct": 12.5, "color": "#8b5cf6" }
+  ],
+  "monthlyExecution": [
+    { "month": "2023.Q2", "planned": 800, "actual": 650 },
+    { "month": "2023.Q3", "planned": 1200, "actual": 980 },
+    { "month": "2023.Q4", "planned": 2000, "actual": 1750 },
+    { "month": "2024.Q1", "planned": 3500, "actual": 3200 },
+    { "month": "2024.Q2", "planned": 5000, "actual": 4800 },
+    { "month": "2024.Q3", "planned": 6500, "actual": 5900 },
+    { "month": "2024.Q4", "planned": 8000, "actual": 7200 },
+    { "month": "2025.Q1", "planned": 10000, "actual": 8500 },
+    { "month": "2025.Q2", "planned": 12500, "actual": 11200 },
+    { "month": "2025.Q3", "planned": 15000, "actual": 14100 },
+    { "month": "2025.Q4", "planned": 18000, "actual": 16800 },
+    { "month": "2026.Q1", "planned": 22000, "actual": 20500 },
+    { "month": "2026.Q2", "planned": 27000, "actual": null }
+  ],
+  "costOverrunRisk": {
+    "currentVariancePct": -6.8,
+    "label": "계획 대비 6.8% 미달 (보수적 집행)",
+    "trend": "improving"
+  }
+}

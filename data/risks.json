@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "projectId": 1,
+    "category": "사회·갈등",
+    "name": "이주민 보상 분쟁",
+    "description": "이동읍·남사읍 주민 보상가 불만으로 집단 행정소송 진행 중. 잔여 36% 필지의 보상 협의 지연 가능성.",
+    "severity": "high",
+    "likelihood": "high",
+    "impact": "부지 확보 3~6개월 지연, 추가 보상비 약 3,000억원 발생 가능",
+    "mitigation": "보상협의회 확대 운영, 이주 대책 보완, 갈등 조정 전문가 투입",
+    "detectedAt": "2026-03-15"
+  },
+  {
+    "id": 2,
+    "projectId": 1,
+    "category": "환경·규제",
+    "name": "환경영향평가 부대조건 이행",
+    "description": "환경부 최종 승인 시 부과된 15개 부대조건(대기질·지하수·생태복원) 이행 필요.",
+    "severity": "medium",
+    "likelihood": "medium",
+    "impact": "조건 미이행 시 착공 허가 지연, 추가 환경 투자 약 2,000억원",
+    "mitigation": "전담 환경관리팀 구성, 분기별 이행 점검 보고서 제출",
+    "detectedAt": "2026-04-10"
+  },
+  {
+    "id": 3,
+    "projectId": 1,
+    "category": "인프라",
+    "name": "전력 수급 불안정",
+    "description": "반도체 팹 가동 시 예상 전력 수요 약 3GW. 현재 경기남부 변전소 용량 부족.",
+    "severity": "high",
+    "likelihood": "low",
+    "impact": "팹 가동 일정 지연, 전력 인프라 추가 투자 약 1.5조원",
+    "mitigation": "한전 전용 변전소 신설 협약, 자가 발전 설비 검토",
+    "detectedAt": "2026-02-20"
+  },
+  {
+    "id": 4,
+    "projectId": 1,
+    "category": "법률·행정",
+    "name": "토지 소유권 분쟁",
+    "description": "남사읍 일부 필지 소유권 관련 행정소송 3건 진행 중.",
+    "severity": "medium",
+    "likelihood": "high",
+    "impact": "해당 필지 수용 2~4개월 지연",
+    "mitigation": "법률 자문팀 강화, 대체 필지 확보 계획 수립",
+    "detectedAt": "2026-04-13"
+  },
+  {
+    "id": 5,
+    "projectId": 1,
+    "category": "공정·일정",
+    "name": "공정 지연 (3개월 초과 위험)",
+    "description": "보상 지연 + 인프라 착공 지연의 연쇄효과로 전체 마스터플랜 3개월 이상 지연 가능성.",
+    "severity": "high",
+    "likelihood": "medium",
+    "impact": "팹 1동 착공 시점 2027 Q2 → Q3~Q4 이동, 투자 기회비용 발생",
+    "mitigation": "크리티컬 패스 분석, 병행 공정 확대, 주간 공정회의 강화",
+    "detectedAt": "2026-03-28"
+  },
+  {
+    "id": 6,
+    "projectId": 1,
+    "category": "환경·규제",
+    "name": "지하수 오염 우려",
+    "description": "반도체 제조 공정 화학물질(HF, NH3 등)의 지하수 유입 가능성에 대한 환경단체 우려.",
+    "severity": "low",
+    "likelihood": "medium",
+    "impact": "지하수 모니터링 시스템 추가 설치 비용 약 200억원",
+    "mitigation": "실시간 지하수 모니터링 시스템 설계 반영, 환경 NGO 협의채널 구축",
+    "detectedAt": "2026-01-15"
+  }
+]
